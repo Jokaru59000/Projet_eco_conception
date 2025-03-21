@@ -1,0 +1,24 @@
+1/Définir la stack de développement 
+
+    Front : Svelte =>  Nous avons choisi Svelte car il permet d'envoyer moins de JavaScript au client contrairement aux différents framework 
+        tel que React ou Vue. Il compile le code en pur et sans runtime ce qui améliore grandement les performances. Il ne possède pas de virtual DOM 
+        de ce fait il n'y a pas de calcul superflue ce qui réduit la consommation du CPU. Et comme il y a moins de code, il y a donc moins de données à envoyer 
+        et à traiter idéal pour l'écoconception.
+
+    Back : express => Pour le back, nous avons choisi d'utiliser le langage Node.js avec la bibliothèque express car c'est une bibliothèque 
+        que nous connaissons qu'elle est facile à optimiser et qu'elle possède un gros écosystème.
+        
+2/Définir la base de données
+
+    BDD : MySql => On a choisi MySql pour gérer notre base de données puisque nous voulions une base de données relationnelle
+        et que l'installation d'une base de données MySql est plus simple, les paramètres par défaut n'ont pas besoin d'être changé 
+        et il est disponible sur tous les OS. Nous l'hébergeont en ligne grâce à alwaysdata solution gratuite, efficace et très peu coûteuse en ressource car limité en taille.
+
+
+3/Définir ce qu'est un événement
+
+    Un événement est défini par un nom, une date, un lieu/endroit, une description, une durée, une date de création et une date de mise à jour.
+
+4/Création du back
+
+5/Création du front
