@@ -1,47 +1,57 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  let title = "";
+  let date = "";
+  let location = "";
+
+  // Tableau pour stocker les événements
+  let events = [];
+
+  // Fonction pour ajouter un événement
+  const addEvent = () => {
+    if (title && date && location) {
+      const newEvent = { title, date, location };
+      events = [...events, newEvent]; // Ajouter l'événement à la liste
+      title = ""; // Réinitialiser les champs du formulaire
+      date = "";
+      location = "";
+    } else {
+      alert("Tous les champs doivent être remplis.");
+    }
+  };
 </script>
 
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <h1>Événements à venir</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
+  <!-- Formulaire pour ajouter un nouvel événement -->
+  <form on:submit|preventDefault={addEvent}>
+    <div>
+      <label for="title">Titre de l'événement:</label>
+      <input id="title" type="text" bind:value={title} placeholder="Nom de l'événement" required />
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input id="date" type="date" bind:value={date} required />
+    </div>
+    <div>
+      <label for="location">Lieu:</label>
+      <input id="location" type="text" bind:value={location} placeholder="Lieu de l'événement" required />
+    </div>
+    <button type="submit">Ajouter l'événement</button>
+  </form>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <ul>
+    <!-- Affichage des événements -->
+    {#each events as event}
+      <li>
+        <h3>{event.title}</h3>
+        <p>Date: {event.date}</p>
+        <p>Lieu: {event.location}</p>
+      </li>
+    {/each}
+  </ul>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
+  /* Styles comme précédemment */
 </style>
