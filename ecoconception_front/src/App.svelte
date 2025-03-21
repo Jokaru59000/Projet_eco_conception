@@ -1,47 +1,81 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import { onMount } from 'svelte';
+
+  let name = ''; // Nom de l'événement
+  let date = ''; // Date de l'événement
+  let place = ''; // Lieu de l'événement
+
+  // Fonction pour ajouter un événement via POST
+  const addEvent = async () => {
+    try {
+      const newEvent = {
+        name,
+        date,
+        place
+      };
+
+      const response = await fetch('http://localhost:3000/api/events', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ event: newEvent })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Événement ajouté:', data);
+        // Réinitialiser les champs après l'ajout
+        name = '';
+        date = '';
+        place = '';
+      } else {
+        console.error('Erreur lors de l\'ajout de l\'événement');
+      }
+    } catch (error) {
+      console.error('Erreur réseau:', error);
+    }
+  };
 </script>
 
 <main>
+  <h1>Ajouter un événement</h1>
+
   <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
+    <div>
+      <label for="name">Nom de l'événement:</label>
+      <input id="name" type="text" bind:value={name} placeholder="Nom de l'événement" required />
+    </div>
+    <div>
+      <label for="date">Date de l'événement:</label>
+      <input id="date" type="date" bind:value={date} required />
+    </div>
+    <div>
+      <label for="place">Lieu de l'événement:</label>
+      <input id="place" type="text" bind:value={place} placeholder="Lieu de l'événement" required />
+    </div>
+    <button on:click={addEvent}>Ajouter un événement</button>
   </div>
-  <h1>Vite + Svelte</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <p>Formulaire d'ajout d'événements. Les données seront envoyées au backend sous ce format:</p>
+  <pre>{`{ "event": { "name": "${name}", "date": "${date}", "place": "${place}" } }`}</pre>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  /* Ajoute des styles si nécessaire */
+  input {
+    margin: 10px;
+    padding: 8px;
+    width: 100%;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+  button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
   }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+  button:hover {
+    background-color: #218838;
   }
 </style>
