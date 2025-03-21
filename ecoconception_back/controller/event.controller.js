@@ -1,8 +1,15 @@
+const { where } = require("sequelize");
 const Event = require("./../model/event.model")
 
 exports.create = async (req, res, next) => {
-    let event = await Event.create(req.body.create);
-    res.status(201).json(event)
+    try {
+        console.log(req.body.event)
+        let event = await Event.create(req.body.event);
+        res.status(201).json(event)
+
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
 exports.getAll = async (req, res, next) => {
@@ -12,7 +19,19 @@ exports.getAll = async (req, res, next) => {
 
     } catch (error) {
         console.log(error)
-        //
-        //  res.status(400).end()
+            /
+            res.status(400).end()
+    }
+}
+
+exports.getById = async (req, res, next) => {
+    const idReq = req.params.id;
+    try {
+        let listEvent = await Event.finOne({ where: { id: idReq } });
+        res.status(200).json(listEvent)
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).end()
     }
 }
