@@ -14,13 +14,12 @@ exports.create = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
     try {
-        let listEvent = await Event.findAll();
+        let listEvent = await Event.findAll({ order: [["date", "ASC"]] });
         res.status(200).json(listEvent)
 
     } catch (error) {
         console.log(error)
-            /
-            res.status(400).end()
+        res.status(400).end()
     }
 }
 
