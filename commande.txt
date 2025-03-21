@@ -1,0 +1,13 @@
+/Pour le front :
+
+ npm create vite@latest > Deja créé pas besoin de refaire la commande
+   cd ecoconception_front
+   npm install > Deja installé pas besoin de refaire la commande
+   npm run dev
+
+/Pour le back :
+
+ npm i -g @nestjs/cli > Deja créé pas besoin de refaire la commande
+ nest new ecoconception_back > Deja créé pas besoin de refaire la commande
+ cd .\ecoconception_back\
+ npm run start
