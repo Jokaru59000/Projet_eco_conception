@@ -2,3 +2,5 @@ node_modules/*
 .vscode/*
 coverage/*
 */node_modules
+.env
+*.env*
