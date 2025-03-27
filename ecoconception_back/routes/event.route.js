@@ -8,4 +8,5 @@ router.post("/add", eventController.create)
 
 router.get("/:id", eventController.getById)
 
+router.get("/pagination/:page", eventController.getPage)
 module.exports = router;
