@@ -41,16 +41,24 @@ exports.getPage = async (req,res,next) => {
     console.log(page)
     
     try {
-        let elements = await Event.findAll({
-            offset: (page-1)* parseInt(process.env.PAGINATION), 
-            limit: parseInt(process.env.PAGINATION),
+        let {count, rows:events} = await Event.findAndCountAll({
+            offset: (page-1)* parseInt(process.env.LIMIT_PAGINATION), 
+            limit: parseInt(process.env.LIMIT_PAGINATION),
             order: [["date", "DESC"]]
         })
-        console.log(elements)
+       let totalEvents = await Event.count({
+            offset: (page-1)* parseInt(process.env.LIMIT_PAGINATION), 
+            limit: parseInt(process.env.LIMIT_PAGINATION),
+            order: [["date", "DESC"]]
+       })
         res.status(200).json({
-            page: page,
-            total: elements.length,
-            items: elements
+            page: parseInt(page),
+            totalPages: Math.ceil(totalEvents / parseInt(process.env.LIMIT_PAGINATION)),
+            totalEvents : totalEvents,
+            eventList: {
+                count : count,
+                events : events
+            }
         })
     } catch(error) {
         console.log(error)
