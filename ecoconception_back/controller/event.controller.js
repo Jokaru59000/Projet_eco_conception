@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 require("dotenv").config()
 const Event = require("./../model/event.model")
 
@@ -42,11 +42,14 @@ exports.getPage = async (req,res,next) => {
     
     try {
         let {count, rows:events} = await Event.findAndCountAll({
+            where: {date: {[Op.gt] : new Date()}},
             offset: (page-1)* parseInt(process.env.LIMIT_PAGINATION), 
             limit: parseInt(process.env.LIMIT_PAGINATION),
-            order: [["date", "DESC"]]
+            order: [["date", "ASC"]]
         })
        let totalEvents = await Event.count({
+                    where: {date: {[Op.gt] : new Date()}},
+
             offset: (page-1)* parseInt(process.env.LIMIT_PAGINATION), 
             limit: parseInt(process.env.LIMIT_PAGINATION),
             order: [["date", "DESC"]]

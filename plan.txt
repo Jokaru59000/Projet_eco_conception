@@ -7,6 +7,7 @@
 
     Back : express => Pour le back, nous avons choisi d'utiliser le langage Node.js avec la bibliothèque express car c'est une bibliothèque 
         que nous connaissons qu'elle est facile à optimiser et qu'elle possède un gros écosystème.
+        Au vue de l'ampleur de l'application, peut de dependances sont 
         
 2/Définir la base de données
 
@@ -17,7 +18,13 @@
 
 3/Définir ce qu'est un événement
 
-    Un événement est défini par un nom, une date, un lieu/endroit, une description, une durée, une date de création et une date de mise à jour.
+    Un événement est défini par
+    - un nom : VARCHAR(255) 
+    - une date : DATE()
+    - un lieu/endroit : TEXT()
+    - une description : TEXT()
+    - une durée : TIME()
+    - une date de création et une date de mise à jour : DATE()
 
 4/Création du back
 
